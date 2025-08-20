@@ -1,0 +1,39 @@
+{
+  "name": "plato-vue",
+  "version": "1.0.0",
+  "description": "A globally installable Vue.js Maintainability Index analyzer using Plato",
+  "main": "index.js",
+  "bin": {
+    "plato-vue": "./index.js"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js . test-output",
+    "build": "echo 'No build step required for Node.js'",
+    "lint": "echo 'Add ESLint configuration here'",
+    "clean": "Remove-Item -Recurse -Force test-* -ErrorAction SilentlyContinue; Remove-Item -Recurse -Force plato-report -ErrorAction SilentlyContinue"
+  },
+  "keywords": [
+    "vue",
+    "maintainability",
+    "code-quality",
+    "code-analysis",
+    "complexity",
+    "plato"
+  ],
+  "author": "Win Khant Aung",
+  "license": "MIT",
+  "dependencies": {
+    "plato": "^1.7.0",
+    "glob": "^11.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/plato-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/plato-vue/issues"
+  },
+  "homepage": "https://github.com/yourusername/plato-vue#readme"
+}
