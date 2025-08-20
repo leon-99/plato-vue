@@ -20,7 +20,7 @@ class PlatoAnalyzer {
   static processResults(results, tempFiles) {
     const processedResults = [];
     
-    tempFiles.forEach(({ vueFile, tempFileName, originalName }, index) => {
+    tempFiles.forEach(({ originalFile, tempFileName, originalName, fileType }, index) => {
       const fileReport = results[index];
       
       if (fileReport && fileReport.complexity) {
@@ -30,6 +30,7 @@ class PlatoAnalyzer {
         
         processedResults.push({
           originalName,
+          fileType,
           maintainability: mi,
           complexity,
           sloc,

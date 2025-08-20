@@ -1,7 +1,7 @@
 {
   "name": "plato-vue",
-  "version": "1.0.0",
-  "description": "A globally installable Vue.js Maintainability Index analyzer using Plato",
+  "version": "1.2.0",
+  "description": "A globally installable Vue.js and JavaScript Maintainability Index analyzer using Plato with clean modular architecture",
   "main": "index.js",
   "bin": {
     "plato-vue": "./index.js"
@@ -16,6 +16,7 @@
   },
   "keywords": [
     "vue",
+    "javascript",
     "maintainability",
     "code-quality",
     "code-analysis",
@@ -30,10 +31,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/plato-vue.git"
+    "url": "git+https://github.com/leon-99/plato-vue.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/plato-vue/issues"
+    "url": "https://github.com/leon-99/plato-vue/issues"
   },
-  "homepage": "https://github.com/yourusername/plato-vue#readme"
+  "homepage": "https://github.com/leon-99/plato-vue#readme"
 }

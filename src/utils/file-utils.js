@@ -39,6 +39,9 @@ class FileUtils {
   }
 
   static resolvePath(basePath, relativePath) {
+    if (relativePath === undefined) {
+      return path.resolve(basePath);
+    }
     return path.resolve(basePath, relativePath);
   }
 

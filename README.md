@@ -1,10 +1,21 @@
-# Plato Vue.js Maintainability Analyzer
+<div align="center">
 
-A globally installable Node.js package that analyzes Vue.js `.vue` files and generates comprehensive maintainability reports using Plato.
+# 🚀 Plato Vue.js & JavaScript Maintainability Analyzer
+
+**Plato for Vue and JavaScript projects** - Clean, modular code analysis
+
+[![npm version](https://img.shields.io/npm/v/plato-vue.svg)](https://www.npmjs.com/package/plato-vue)
+[![npm downloads](https://img.shields.io/npm/dm/plato-vue.svg)](https://www.npmjs.com/package/plato-vue)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+A globally installable Node.js package that analyzes Vue.js `.vue` files and JavaScript `.js` files to generate comprehensive maintainability reports using Plato.
 
 ## 🚀 Features
 
 - **Vue.js Support**: Analyzes Vue Single File Components (SFC) by extracting `<script>` blocks
+- **JavaScript Support**: Directly analyzes JavaScript files for comprehensive coverage
 - **Maintainability Index**: Calculates and categorizes code maintainability scores
 - **Cyclomatic Complexity**: Measures code complexity for better understanding
 - **HTML Reports**: Generates detailed HTML reports with Plato's visualization
@@ -21,7 +32,7 @@ npm install -g plato-vue
 
 ### Basic Usage
 ```bash
-# Analyze current directory
+# Analyze current directory (Vue + JS files)
 plato-vue
 
 # Analyze specific directory
@@ -54,7 +65,7 @@ plato-vue . test-output
 
 ### Console Output
 ```
-🔍 Plato Vue.js Maintainability Analyzer
+🔍 Plato Vue.js & JavaScript Maintainability Analyzer
 📁 Analyzing: C:\Users\Win Aung\projects\my-vue-project
 📊 Output: C:\Users\Win Aung\projects\my-vue-project\plato-report
 
@@ -63,20 +74,31 @@ plato-vue . test-output
    src\components\Header.vue
    ...
 
-📊 Summary: 15 files with script blocks found out of 15 total Vue files
+🔍 Found 8 JavaScript file(s):
+   src\utils\helper.js
+   src\services\api.js
+   ...
+
+📊 Summary: 23 files processed out of 23 total files (Vue + JS)
 
 📊 Plato Analysis Results:
 
-📁 src\App.vue:
+📁 src\App.vue (Vue):
    Maintainability Index: 85.50
    Cyclomatic Complexity: 2.10
    Lines of Code: 45
    Status: 🟢 Excellent
 
+📁 src\utils\helper.js (JS):
+   Maintainability Index: 78.20
+   Cyclomatic Complexity: 3.45
+   Lines of Code: 67
+   Status: 🟡 Good
+
 📈 Summary:
    Average Maintainability Index: 78.25
    Average Cyclomatic Complexity: 1.85
-   Total Files Analyzed: 15
+   Total Files Analyzed: 23
 
 🌐 HTML Report generated at: C:\Users\Win Aung\projects\my-vue-project\plato-report\index.html
    Open this file in your browser for detailed analysis!
@@ -87,13 +109,11 @@ plato-vue . test-output
 
 ### HTML Report
 Generates a comprehensive HTML report with:
-- File-by-file analysis
+- File-by-file analysis (Vue + JavaScript)
 - Maintainability Index charts
 - Complexity metrics
 - Code quality insights
 - Interactive navigation
-
-
 
 ## 🔧 Configuration
 
@@ -113,19 +133,19 @@ eslint: {
 }
 
 // Custom report title
-title: 'My Custom Vue.js Analysis Report'
+title: 'My Custom Vue.js & JavaScript Analysis Report'
 ```
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
-**"No .vue files found"**
-- Ensure the target directory contains `.vue` files
+**"No .vue or .js files found"**
+- Ensure the target directory contains `.vue` or `.js` files
 - Check file permissions
 - Verify the path is correct
 
-**"No script blocks found"**
+**"No script blocks found in Vue files"**
 - Vue files must contain `<script>` tags
 - Check for proper Vue SFC syntax
 
@@ -133,10 +153,6 @@ title: 'My Custom Vue.js Analysis Report'
 - Some modern JavaScript syntax may not be supported by Plato
 - Check console for specific error messages
 - Verify Node.js version compatibility
-
-
-
-
 
 ## 🤝 Contributing
 
@@ -154,7 +170,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - Built with [Plato](https://github.com/es-analysis/plato) for code analysis
 - Uses [glob](https://github.com/isaacs/node-glob) for file discovery
-- Inspired by the need for Vue.js-specific maintainability analysis
+- Inspired by the need for Vue.js and JavaScript maintainability analysis
 
 ## 📞 Support
 

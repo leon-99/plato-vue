@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const VueFileFinder = require('./services/vue-file-finder');
+const FileFinder = require('./services/vue-file-finder');
 const ScriptExtractor = require('./services/script-extractor');
 const PlatoAnalyzer = require('./services/plato-analyzer');
 const ReportGenerator = require('./services/report-generator');
@@ -17,24 +17,24 @@ class VueMaintainabilityAnalyzer {
 
   async run() {
     try {
-      console.log("🔍 Plato Vue.js Maintainability Analyzer");
+      console.log("🔍 Plato Vue.js & JavaScript Maintainability Analyzer");
       
-      // Step 1: Find Vue files
-      const { files: vueFiles, targetPath: targetPathResolved } = VueFileFinder.findVueFiles(this.targetPath);
-      VueFileFinder.validateVueFiles(vueFiles);
+      // Step 1: Find Vue and JavaScript files
+      const { vueFiles, jsFiles, allFiles, targetPath: targetPathResolved } = FileFinder.findFiles(this.targetPath);
+      FileFinder.validateFiles(vueFiles, jsFiles);
       
       console.log(`📁 Analyzing: ${targetPathResolved}`);
-      console.log(`📊 Output: ${FileUtils.resolvePath(this.outputPath)}\n`);
+      console.log(`📊 Output: ${path.resolve(this.outputPath)}\n`);
       
       // Step 2: Extract script blocks and create temporary files
       const tempDir = FileUtils.joinPath(this.outputPath, 'temp-analysis');
       FileUtils.ensureDirectoryExists(this.outputPath);
       FileUtils.ensureDirectoryExists(tempDir);
       
-      const tempFiles = ScriptExtractor.extractScriptBlocks(vueFiles, targetPathResolved, tempDir);
+      const tempFiles = ScriptExtractor.extractScriptBlocks(vueFiles, jsFiles, targetPathResolved, tempDir);
       ScriptExtractor.validateExtractedScripts(tempFiles);
       
-      ReportGenerator.displayFileDiscovery(vueFiles, tempFiles);
+      ReportGenerator.displayFileDiscovery(vueFiles, jsFiles, tempFiles);
       
       // Step 3: Run Plato analysis
       const tempFilePaths = tempFiles.map(tf => tf.tempFile);

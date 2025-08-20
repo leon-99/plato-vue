@@ -5,7 +5,8 @@ class ReportGenerator {
     console.log("📊 Plato Analysis Results:\n");
     
     processedResults.forEach(result => {
-      console.log(`📁 ${result.originalName}:`);
+      const fileType = result.fileType === 'vue' ? 'Vue' : 'JS';
+      console.log(`📁 ${result.originalName} (${fileType}):`);
       console.log(`   Maintainability Index: ${result.maintainability.toFixed(2)}`);
       console.log(`   Cyclomatic Complexity: ${result.complexity.toFixed(2)}`);
       console.log(`   Lines of Code: ${result.sloc}`);
@@ -22,12 +23,21 @@ class ReportGenerator {
     console.log(`   Total Files Analyzed: ${summary.totalFiles}`);
   }
 
-  static displayFileDiscovery(vueFiles, tempFiles) {
-    console.log(`🔍 Found ${vueFiles.length} Vue file(s):`);
-    vueFiles.forEach(file => console.log(`   ${file}`));
-    console.log();
+  static displayFileDiscovery(vueFiles, jsFiles, tempFiles) {
+    if (vueFiles.length > 0) {
+      console.log(`🔍 Found ${vueFiles.length} Vue file(s):`);
+      vueFiles.forEach(file => console.log(`   ${FileUtils.getRelativePath(process.cwd(), file)}`));
+      console.log();
+    }
     
-    console.log(`📊 Summary: ${tempFiles.length} files with script blocks found out of ${vueFiles.length} total Vue files`);
+    if (jsFiles.length > 0) {
+      console.log(`🔍 Found ${jsFiles.length} JavaScript file(s):`);
+      jsFiles.forEach(file => console.log(`   ${FileUtils.getRelativePath(process.cwd(), file)}`));
+      console.log();
+    }
+    
+    const totalFiles = vueFiles.length + jsFiles.length;
+    console.log(`📊 Summary: ${tempFiles.length} files processed out of ${totalFiles} total files (Vue + JS)`);
   }
 
   static displayOutputPath(outputPath) {
@@ -39,7 +49,7 @@ class ReportGenerator {
   }
 
   static displayUsage() {
-    console.log("❌ No .vue files found in the specified directory.");
+    console.log("❌ No .vue or .js files found in the specified directory.");
     console.log("   Usage: plato-vue [source-path] [output-path]");
     console.log("   Example: plato-vue . plato-report");
     console.log("   Example: plato-vue src");
