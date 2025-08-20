@@ -8,49 +8,14 @@ class FileFinder {
     
     console.log(`🔍 Searching in: ${targetPathResolved}`);
     
-    // Try glob first, but fall back to manual recursive search if needed
-    let vueFiles = [];
-    let jsFiles = [];
+    // Use the proven working logic from the test script
+    console.log(`   Using comprehensive Node.js recursive search...`);
+    const results = this.scanDirectoryComprehensive(targetPathResolved);
     
-    try {
-      // Use glob with recursive pattern
-      vueFiles = glob.sync("**/*.vue", { 
-        cwd: targetPathResolved, 
-        absolute: true,
-        ignore: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.git/**'],
-        dot: false,
-        follow: false,
-        strict: false
-      });
-      
-      jsFiles = glob.sync("**/*.js", { 
-        cwd: targetPathResolved, 
-        absolute: true,
-        ignore: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.git/**'],
-        dot: false,
-        follow: false,
-        strict: false
-      });
-      
-      console.log(`   Glob found: ${vueFiles.length} Vue files, ${jsFiles.length} JS files`);
-    } catch (error) {
-      console.log(`   Glob search failed: ${error.message}`);
-    }
+    const vueFiles = results.vueFiles;
+    const jsFiles = results.jsFiles;
     
-    // If glob didn't find many files, use manual recursive search as backup
-    if (jsFiles.length < 10) { // Arbitrary threshold to detect if glob is working
-      console.log(`   Using manual recursive search as backup...`);
-      const manualResults = this.recursiveFileSearch(targetPathResolved);
-      
-      // Merge results, preferring glob results but adding any missing files
-      const allVueFiles = new Set([...vueFiles, ...manualResults.vueFiles]);
-      const allJsFiles = new Set([...jsFiles, ...manualResults.jsFiles]);
-      
-      vueFiles = Array.from(allVueFiles);
-      jsFiles = Array.from(allJsFiles);
-      
-      console.log(`   Manual search added: ${manualResults.vueFiles.length} Vue files, ${manualResults.jsFiles.length} JS files`);
-    }
+    console.log(`   Comprehensive search found: ${vueFiles.length} Vue files, ${jsFiles.length} JS files`);
     
     // Debug: Log what we found
     console.log(`🔍 File discovery results:`);
@@ -76,9 +41,23 @@ class FileFinder {
     };
   }
 
-  static recursiveFileSearch(dir, results = { vueFiles: [], jsFiles: [] }) {
+  static scanDirectoryComprehensive(dir) {
+    const vueFiles = [];
+    const jsFiles = [];
+    
+    try {
+      this.scanDirectoryRecursive(dir, vueFiles, jsFiles);
+    } catch (error) {
+      console.log(`   Error during comprehensive search: ${error.message}`);
+    }
+    
+    return { vueFiles, jsFiles };
+  }
+
+  static scanDirectoryRecursive(dir, vueFiles, jsFiles, depth = 0) {
     try {
       const items = fs.readdirSync(dir);
+      console.log(`   Debug: Scanning ${path.basename(dir)} (depth ${depth}) - found ${items.length} items`);
       
       for (const item of items) {
         const fullPath = path.join(dir, item);
@@ -88,25 +67,47 @@ class FileFinder {
           
           if (stat.isDirectory()) {
             // Skip certain directories
-            if (!['node_modules', 'dist', 'build', '.git', 'test-output', 'plato-report'].includes(item)) {
-              this.recursiveFileSearch(fullPath, results);
+            if (!this.shouldSkipDirectory(item)) {
+              console.log(`   Debug: Entering subdirectory: ${item} at depth ${depth}`);
+              // Recursively scan subdirectories
+              this.scanDirectoryRecursive(fullPath, vueFiles, jsFiles, depth + 1);
+            } else {
+              console.log(`   Debug: Skipping directory: ${item}`);
             }
-          } else if (item.endsWith('.vue')) {
-            results.vueFiles.push(fullPath);
-          } else if (item.endsWith('.js')) {
-            results.jsFiles.push(fullPath);
+          } else if (this.isTargetFile(item)) {
+            // Add file to appropriate array
+            if (item.endsWith('.vue')) {
+              vueFiles.push(fullPath);
+              console.log(`   Debug: Added Vue file: ${item} at depth ${depth}`);
+            } else if (item.endsWith('.js')) {
+              jsFiles.push(fullPath);
+              console.log(`   Debug: Added JS file: ${item} at depth ${depth}`);
+            }
           }
         } catch (statError) {
           // Skip files we can't stat (like broken symlinks)
+          console.log(`   Debug: Could not stat ${item}: ${statError.message}`);
           continue;
         }
       }
     } catch (error) {
       // Skip directories we can't read
-      return results;
+      console.log(`   Debug: Could not read directory ${dir}: ${error.message}`);
+      return;
     }
-    
-    return results;
+  }
+
+  static shouldSkipDirectory(dirName) {
+    const skipDirs = [
+      'node_modules', 'dist', 'build', '.git', 'test-output', 
+      'plato-report', '.vscode', '.idea', 'coverage', 'temp',
+      'tmp', 'cache', 'logs', 'uploads', 'downloads'
+    ];
+    return skipDirs.includes(dirName);
+  }
+
+  static isTargetFile(fileName) {
+    return fileName.endsWith('.vue') || fileName.endsWith('.js');
   }
 
   static validateFiles(vueFiles, jsFiles) {
