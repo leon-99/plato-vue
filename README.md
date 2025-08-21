@@ -8,6 +8,8 @@
 [![npm downloads](https://img.shields.io/npm/dm/plato-vue.svg)](https://www.npmjs.com/package/plato-vue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+![Plato Vue.js & JavaScript Maintainability Analyzer](./plato-vue.png)
+
 </div>
 
 A globally installable Node.js package that analyzes Vue.js `.vue` files and JavaScript `.js` files to generate comprehensive maintainability reports using Plato.
