@@ -47,7 +47,7 @@ plato-vue src custom-report
 ### Examples
 ```bash
 # Analyze a Vue.js project
-plato-vue "C:\Users\Win Aung\projects\my-vue-project"
+plato-vue "my-vue-project"
 
 # Generate report in specific folder
 plato-vue src "reports/maintainability"
@@ -117,27 +117,6 @@ Generates a comprehensive HTML report with:
 - Code quality insights
 - Interactive navigation
 
-## 🔧 Configuration
-
-Edit `src/config/plato-config.js` to customize:
-- Report title
-- ESLint rules
-- Analysis options
-
-```javascript
-// Disable specific ESLint rules
-eslint: {
-  rules: {
-    'no-undef': 0,
-    'no-unused-vars': 0,
-    'no-console': 0
-  }
-}
-
-// Custom report title
-title: 'My Custom Vue.js & JavaScript Analysis Report'
-```
-
 ## 🐛 Troubleshooting
 
 ### Common Issues
@@ -176,6 +155,5 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/plato-vue/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/plato-vue/discussions)
-- **Documentation**: [GitHub Wiki](https://github.com/yourusername/plato-vue/wiki)
+- **Issues**: [GitHub Issues](https://github.com/leon-99/plato-vue)
+- **Discussions**: [GitHub Discussions](https://github.com/leon-99/plato-vue/discussions)
