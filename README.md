@@ -150,7 +150,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 🙏 Acknowledgments
 
 - Built with [Plato](https://github.com/es-analysis/plato) for code analysis
-- Uses [glob](https://github.com/isaacs/node-glob) for file discovery
+- Uses Node.js built-in file system APIs for efficient file discovery
 - Inspired by the need for Vue.js and JavaScript maintainability analysis
 
 ## 📞 Support

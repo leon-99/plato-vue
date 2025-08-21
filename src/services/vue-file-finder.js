@@ -1,4 +1,3 @@
-const glob = require('glob');
 const path = require('path');
 const fs = require('fs');
 
@@ -55,6 +54,10 @@ class FileFinder {
   }
 
   static scanDirectoryRecursive(dir, vueFiles, jsFiles, depth = 0) {
+    // Safety guard to avoid pathological or cyclic recursion
+    if (depth > 50) {
+      return;
+    }
     try {
       const items = fs.readdirSync(dir);
       console.log(`   Debug: Scanning ${path.basename(dir)} (depth ${depth}) - found ${items.length} items`);

@@ -9,7 +9,12 @@
   "type": "commonjs",
   "scripts": {
     "start": "node index.js",
-    "test": "node index.js . test-output",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+
+    "test:unit": "jest --testPathPattern=\"test\" --verbose",
+    "test:debug": "jest --detectOpenHandles --forceExit",
     "build": "echo 'No build step required for Node.js'",
     "lint": "echo 'Add ESLint configuration here'",
     "clean": "Remove-Item -Recurse -Force test-* -ErrorAction SilentlyContinue; Remove-Item -Recurse -Force plato-report -ErrorAction SilentlyContinue"
@@ -26,8 +31,10 @@
   "author": "Win Khant Aung",
   "license": "MIT",
   "dependencies": {
-    "plato": "^1.7.0",
-    "glob": "^11.0.2"
+    "plato": "^1.7.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   },
   "repository": {
     "type": "git",
