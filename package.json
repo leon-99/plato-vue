@@ -1,6 +1,6 @@
 {
   "name": "plato-vue",
-  "version": "1.2.6",
+  "version": "1.2.8",
   "description": "A globally installable Vue.js and JavaScript Maintainability Index analyzer using Plato with clean modular architecture",
   "main": "index.js",
   "bin": {

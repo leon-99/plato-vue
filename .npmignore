@@ -1,0 +1,47 @@
+# Development dependencies
+node_modules/
+coverage/
+test/
+jest.config.js
+jest.setup.js
+
+# Development files
+.git/
+.gitignore
+README.md
+TESTING.md
+plato-vue.png
+
+# Build and temporary files
+*.tgz
+*.log
+temp-*
+plato-report/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment files
+.env
+.env.test
+
+# Cache directories
+.cache/
+.parcel-cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
